@@ -1,8 +1,4 @@
 # ModSecurity WAF Engineering Lab
-
-**Owner:** [adityaG001](https://github.com/adityaG001)  
-**Status:** `Planned` — deployment, tuning and test evidence will be added as the lab is completed.
-
 A hands-on Web Application Firewall lab using ModSecurity and the OWASP Core Rule Set (CRS) to protect an intentionally vulnerable application in an isolated environment.
 
 ## Objectives
