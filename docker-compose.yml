@@ -1,0 +1,32 @@
+services:
+  juice-shop:
+    image: bkimminich/juice-shop
+    container_name: juice-shop
+    expose:
+      - "3000"
+    networks:
+      - waf-backend
+
+  waf:
+    image: owasp/modsecurity-crs:apache
+    container_name: modsecurity-crs-waf
+    depends_on:
+      - juice-shop
+    environment:
+      SERVERNAME: localhost
+      BACKEND: http://juice-shop:3000
+      PORT: "80"
+      MODSEC_RULE_ENGINE: DetectionOnly
+      BLOCKING_PARANOIA: "1"
+      TZ: Asia/Kolkata
+      MODSEC_AUDIT_LOG_FORMAT: Native
+      MODSEC_AUDIT_LOG_TYPE: Serial
+    ports:
+      # Local-only publishing by default. Change deliberately for an isolated VM lab.
+      - "127.0.0.1:8080:80"
+    networks:
+      - waf-backend
+
+networks:
+  waf-backend:
+    internal: false
